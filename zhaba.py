@@ -211,8 +211,8 @@ class ZhabaMod(loader.Module):
             else int(self.me.id % 100 / 3)
         )
         try:
-            if ct.minute not in (n + 3, n + 21) and (
-                "auto" not in self.su and "chats" not in self.su
+            if "auto" not in self.su or "chats" not in self.su or (
+                ct.minute not in (n + 3, n + 21)
             ):
                 return
             await asyncio.sleep(
@@ -231,8 +231,6 @@ class ZhabaMod(loader.Module):
             if not RSP:
                 return
             await self.client.delete_dialog(chat, revoke=True)
-            if "chats" not in self.su and "auto" not in self.su:
-                return
             for i in re.findall(r"(\d+) \| (-\d+)", RSP.text):
                 chat = int(i[1])
                 if "chats" in self.su and chat not in self.su["chats"]:
