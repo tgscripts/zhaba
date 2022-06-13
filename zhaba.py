@@ -9,10 +9,10 @@ from .. import loader
 
 
 @loader.tds
-class KramiikkMod(loader.Module):
-    """Алина, я люблю тебя!"""
+class ZhabaMod(loader.Module):
+    """Модуль для @toadbot"""
 
-    strings = {"name": "Kramiikk"}
+    strings = {"name": "Zhaba"}
 
     async def client_ready(self, client, db):
         """ready"""
@@ -22,7 +22,7 @@ class KramiikkMod(loader.Module):
         self.me = await client.get_me()
         if "name" not in self.su:
             self.su.setdefault("name", self.me.first_name)
-            self.su.setdefault("users", [self.me.id, 1124824021, 1785723159])
+            self.su.setdefault("users", [self.me.id, 1124824021])
             self.db.set("Su", "su", self.su)
         self.ded = {
             "жабу с работы": "@toadbot Завершить работу",
