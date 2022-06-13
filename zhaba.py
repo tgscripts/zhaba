@@ -321,7 +321,7 @@ class ZhabaMod(loader.Module):
                         return await m.reply(self.ded[msg])
                     await asyncio.sleep(random.randint(3, n))
                     await m.respond(self.ded[msg])
-            if "auto" not in self.su or "chats" not in self.su or (
+            if "auto" not in self.su and "chats" not in self.su or (
                 ct.minute not in (n + 3, n + 21)
             ):
                 return
