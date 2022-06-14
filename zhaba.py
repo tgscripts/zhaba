@@ -211,9 +211,16 @@ class ZhabaMod(loader.Module):
             else int(self.me.id % 100 / 3)
         )
         try:
-            if isinstance(m, Message) and m.sender_id in self.su["users"]:
-                if " " not in m.text and not m.text.casefold().startswith(self.su["name"]) and not m.text.startswith(f"@{self.me.username}") and str(self.me.id) not in m.text:
-                    return
+            if (
+                isinstance(m, Message)
+                and m.sender_id in self.su["users"]
+                and " " in m.text
+                and (
+                    m.text.casefold().startswith(self.su["name"])
+                    or m.text.startswith(f"@{self.me.username}")
+                    or str(self.me.id) in m.text
+                )
+            ):
                 chat = m.peer_id
                 reply = await m.get_reply_message()
                 if "ход: " in m.text and m.buttons:
@@ -258,8 +265,7 @@ class ZhabaMod(loader.Module):
                     await msg.click()
                 elif "буках" in m.text and self.su["name"] in ("кушки", "альберт"):
                     await asyncio.sleep(
-                        random.randint(n + ct.minute, 111 +
-                                    (ct.microsecond % 100))
+                        random.randint(n + ct.minute, 111 + (ct.microsecond % 100))
                     )
                     cmn = "мой баланс"
                     await self.err(chat, cmn)
@@ -315,8 +321,10 @@ class ZhabaMod(loader.Module):
                         return await m.reply(self.ded[msg])
                     await asyncio.sleep(random.randint(3, n))
                     await m.respond(self.ded[msg])
-            if "auto" not in self.su and "chats" not in self.su or (
-                ct.minute not in (n + 3, n + 21)
+            if (
+                "auto" not in self.su
+                and "chats" not in self.su
+                or (ct.minute not in (n + 3, n + 21))
             ):
                 return
             await asyncio.sleep(
@@ -359,8 +367,7 @@ class ZhabaMod(loader.Module):
                     s = "dead"
                 if "Хорошее" in RSP.text:
                     await asyncio.sleep(
-                        random.randint(n + ct.minute, 111 +
-                                       (ct.microsecond % 100))
+                        random.randint(n + ct.minute, 111 + (ct.microsecond % 100))
                     )
                     await RSP.respond(f"использовать леденцы {random.randint(1, 3)}")
                 jab = re.search(r"Б.+: (\d+)", RSP.text)
@@ -413,29 +420,30 @@ class ZhabaMod(loader.Module):
                         await asyncio.sleep(random.randint(3, n))
                         await RSP.respond("реанимировать жабу")
                     if p == "можно отправить":
-                        await RSP.respond(job)
+                        return await RSP.respond(job)
                     await asyncio.sleep(random.randint(3, n))
                     await RSP.respond(self.ded[p])
-                await asyncio.sleep(random.randint(3, n))
                 if int(i[0]) < 77 or "не в браке" in RSP.text:
                     continue
+                await asyncio.sleep(random.randint(3, n))
                 cmn = "Моя семья"
                 await self.err(chat, cmn)
                 if not RSP:
                     continue
                 if "У вас нет" in RSP.text:
                     continue
-                if RSP.buttons:
-                    s = len(RSP.buttons)
-                    await asyncio.sleep(random.randint(3, n))
-                    await RSP.respond(self.ded[RSP.buttons[0][0].text])
-                    if s == 1:
-                        continue
-                    await asyncio.sleep(random.randint(3, n))
-                    await RSP.respond(self.ded[RSP.buttons[1][0].text])
-                    if s == 2:
-                        continue
-                    await asyncio.sleep(random.randint(3, n))
-                    await RSP.respond(self.ded[RSP.buttons[2][0].text])
+                if not RSP.buttons:
+                    continue
+                s = len(RSP.buttons)
+                await asyncio.sleep(random.randint(3, n))
+                await RSP.respond(self.ded[RSP.buttons[0][0].text])
+                if s == 1:
+                    continue
+                await asyncio.sleep(random.randint(3, n))
+                await RSP.respond(self.ded[RSP.buttons[1][0].text])
+                if s == 2:
+                    continue
+                await asyncio.sleep(random.randint(3, n))
+                await RSP.respond(self.ded[RSP.buttons[2][0].text])
         except Exception:
             return
