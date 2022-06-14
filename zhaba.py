@@ -131,6 +131,13 @@ class ZhabaMod(loader.Module):
                 txt += f" <b>in {self.su['ess']}</b>"
             else:
                 txt += " <b>⛔️deactivated</b>"
+            txt += f"\nKorm:\n  Откормить:"
+            if "gs" in self.su:
+                txt += " <b>везде</b>"
+            elif "gss" in self.su:
+                txt += f" <b>in {self.su['gss']}</b>"
+            else:
+                txt += " <b>⛔️deactivated</b>"
             txt += f"\nNick: <b>{self.su['name']}</b>"
             txt += "\nUsers: <code>.su</code>"
             return await m.edit(txt)
@@ -154,10 +161,6 @@ class ZhabaMod(loader.Module):
             txt = "<b>👨🏿‍🏭Грабитель:</b>"
             i = "es"
             n = "ess"
-        elif m.text.split(" ", 2)[1] == "f":
-            txt = "<b>🐟Покормить:</b>"
-            i = "fs"
-            n = "fss"
         elif m.text.split(" ", 2)[1] == "g":
             txt = "<b>🐡Откормить:</b>"
             i = "gs"
@@ -401,15 +404,11 @@ class ZhabaMod(loader.Module):
                 for p in (p for p in self.ded if p in RSP.text):
                     if (
                         (
-                            p == "можно отправить"
-                            and job == None
-                            and "cs" not in self.su
-                            and "css" not in self.su
-                            and "ss" not in self.su
-                            and "sss" not in self.su
-                            and "es" not in self.su
-                            and "ess" not in self.su
+                            p == "Можно откормить"
+                            and "gs" not in self.su
+                            or ("gss" in self.su and chat not in self.su["gss"])
                         )
+                        or (p == "можно отправить" and job == None)
                         or (
                             p == "Можно на арену!"
                             and (
@@ -418,16 +417,16 @@ class ZhabaMod(loader.Module):
                             )
                         )
                         or (
-                            (
+                            p in ("Можно откормить", "Можно отправиться")
+                            and (
                                 int(i[0]) < 77
                                 or (int(i[0]) > 77 and int(jab.group(1)) < 1500)
                             )
-                            and p in ("Можно откормить", "Можно отправиться")
                         )
                         or (
-                            (int(i[0]) > 77 and int(jab.group(1)) > 1500)
-                            and p == "можно отправить"
+                            p == "можно отправить"
                             and "подземелье можно через 2" not in RSP.text
+                            and (int(i[0]) > 77 and int(jab.group(1)) > 1500)
                         )
                     ):
                         continue
