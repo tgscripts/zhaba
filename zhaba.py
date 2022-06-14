@@ -110,7 +110,27 @@ class ZhabaMod(loader.Module):
                 txt += f"<b> in {self.su['butos']}</b>"
             else:
                 txt += " <b>⛔️deactivated</b>"
-            txt += f"\nJob: <b>{self.su['job']}</b>"
+            txt += f"\nJob:\n  👯‍♀️Крупье:"
+            if "cs" in self.su:
+                txt += " <b>везде</b>"
+            elif "css" in self.su:
+                txt += f" <b>in {self.su['css']}</b>"
+            else:
+                txt += " <b>⛔️deactivated</b>"
+            txt += "\n  👩🏾‍🍳Столовка:"
+            if "ss" in self.su:
+                txt += " <b>везде</b>"
+            elif "sss" in self.su:
+                txt += f" <b>in {self.su['sss']}</b>"
+            else:
+                txt += " <b>⛔️deactivated</b>"
+            txt += "\n  👨🏿‍🏭Грабитель:"
+            if "es" in self.su:
+                txt += " <b>везде</b>"
+            elif "ess" in self.su:
+                txt += f" <b>in {self.su['ess']}</b>"
+            else:
+                txt += " <b>⛔️deactivated</b>"
             txt += f"\nNick: <b>{self.su['name']}</b>"
             txt += "\nUsers: <code>.su</code>"
             return await m.edit(txt)
