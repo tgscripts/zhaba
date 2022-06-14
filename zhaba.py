@@ -211,15 +211,9 @@ class ZhabaMod(loader.Module):
             else int(self.me.id % 100 / 3)
         )
         try:
-            if not isinstance(m, Message) or m.sender_id not in self.su["users"]:
-                return
-            if (
-                (
-                    m.text.casefold().startswith(self.su["name"])
-                    or m.text.startswith(f"@{self.me.username}")
-                )
-                and " " in m.text
-            ) or str(self.me.id) in m.text:
+            if isinstance(m, Message) and m.sender_id in self.su["users"]:
+                if " " not in m.text and not m.text.casefold().startswith(self.su["name"]) and not m.text.startswith(f"@{self.me.username}") and str(self.me.id) not in m.text:
+                    return
                 chat = m.peer_id
                 reply = await m.get_reply_message()
                 if "ход: " in m.text and m.buttons:
@@ -265,7 +259,7 @@ class ZhabaMod(loader.Module):
                 elif "буках" in m.text and self.su["name"] in ("кушки", "альберт"):
                     await asyncio.sleep(
                         random.randint(n + ct.minute, 111 +
-                                       (ct.microsecond % 100))
+                                    (ct.microsecond % 100))
                     )
                     cmn = "мой баланс"
                     await self.err(chat, cmn)
