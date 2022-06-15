@@ -277,7 +277,7 @@ class ZhabaMod(loader.Module):
                     or str(self.me.id) in m.text
                 )
             ):
-                chat = m.peer_id
+                chat = m.chat_id
                 reply = await m.get_reply_message()
                 if "нуждается в реанимации" in m.text and m.buttons:
                     await asyncio.sleep(random.randint(3, n))
