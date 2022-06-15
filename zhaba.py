@@ -297,7 +297,7 @@ class ZhabaMod(loader.Module):
                         return
                     for i in (i for i in self.ded if i in RSP.text):
                         await asyncio.sleep(random.randint(3, n))
-                        await m.respond(self.ded[p])
+                        await m.respond(self.ded[i])
                 elif "Банда получила" in m.text:
                     await asyncio.sleep(random.randint(3, n))
                     await m.respond("отдать леденец")
