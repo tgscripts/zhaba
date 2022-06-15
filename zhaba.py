@@ -255,14 +255,13 @@ class ZhabaMod(loader.Module):
             txt += f"<b> удален чат</b> {msg}"
             if self.su[n] == []:
                 self.su.pop(n)
-                txt += "\f<b>деактивирован</b>"
             return await m.edit(txt)
         elif n in self.su and msg not in self.su[n]:
             txt += f"<b> добавлен чат</b> {msg}"
             self.su[n].append(msg)
         else:
             self.su.setdefault(n, [msg])
-            txt += f"<b> в чате</b> {msg}"
+            txt += f"<b> добавлен чат</b> {msg}"
         self.db.set("Su", "su", self.su)
         await m.edit(txt)
 
