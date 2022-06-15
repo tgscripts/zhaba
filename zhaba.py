@@ -482,11 +482,7 @@ class ZhabaMod(loader.Module):
                 await asyncio.sleep(random.randint(3, n))
                 cmn = "Моя семья"
                 await self.err(chat, cmn)
-                if not RSP:
-                    continue
-                if "У вас нет" in RSP.text:
-                    continue
-                if not RSP.buttons:
+                if not RSP or not RSP.buttons:
                     continue
                 s = len(RSP.buttons)
                 await asyncio.sleep(random.randint(3, n))
