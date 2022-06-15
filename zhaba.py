@@ -228,20 +228,28 @@ class ZhabaMod(loader.Module):
             n = "ass"
         else:
             return
-        if "+" in m.text:
-            self.su.setdefault(i, {})
+        if "/" in m.text:
+            if i in self.su:
+                self.su.pop(i)
             if n in self.su:
                 self.su.pop(n)
-            txt += "<b> для всех жаб</b>"
+                txt += "⛔ деактивирован"
+            return await m.edit(txt)
+        if "+" in m.text:
+            if i in self.su:
+                self.su.pop(i)
+                txt += "деактивирован"
+            else:
+                self.su.setdefault(i, {})
+                if n in self.su:
+                    self.su.pop(n)
+                txt += "<b> для всех жаб</b>"
             return await m.edit(txt)
         msg = m.chat_id if len(m.text) < 9 else int(m.text.split(" ", 2)[2])
         if "-" not in str(msg):
             return await m.edit(
                 "ид чата начинается с '-', напиши <code>узнать ид</code>"
             )
-        if i in self.su:
-            self.su.pop(i)
-            txt += "<b> деактивирован</b>"
         elif n in self.su and msg in self.su[n]:
             self.su[n].remove(msg)
             txt += f"<b> удален чат</b> {msg}"
