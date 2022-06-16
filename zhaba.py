@@ -168,7 +168,7 @@ class ZhabaMod(loader.Module):
                 txt += "\n        ━"
             else:
                 txt += " ⛔️"
-            txt += "\n\n    🍽Крупье:"
+            txt += "\n\n    🎰Крупье:"
             if "cs" in self.su:
                 txt += " 🟢"
             elif "css" in self.su:
@@ -178,7 +178,7 @@ class ZhabaMod(loader.Module):
                 txt += "\n        ━"
             else:
                 txt += " ⛔️"
-            txt += "\n    🎰Столовая:"
+            txt += "\n    🍽Столовая:"
             if "ss" in self.su:
                 txt += " 🟢"
             elif "sss" in self.su:
@@ -188,7 +188,7 @@ class ZhabaMod(loader.Module):
                 txt += "\n        ━"
             else:
                 txt += " ⛔️"
-            txt += "\n    💶 Грабитель:"
+            txt += "\n    💶Грабитель:"
             if "es" in self.su:
                 txt += " 🟢"
             elif "ess" in self.su:
@@ -273,17 +273,17 @@ class ZhabaMod(loader.Module):
                 self.su.pop(i)
             if n in self.su:
                 self.su.pop(n)
-            txt += "⛔ деактивирован"
+            txt += " ⛔"
             return await m.edit(txt)
         if "all" in m.text:
             if i in self.su:
                 self.su.pop(i)
-                txt += "деактивирован"
+                txt += " ⛔"
             else:
                 self.su.setdefault(i, {})
                 if n in self.su:
                     self.su.pop(n)
-                txt += "<b> для всех жаб</b>"
+                txt += " 🟢"
             return await m.edit(txt)
         msg = m.chat_id if len(m.text) < 9 else int(m.text.split(" ", 2)[2])
         if "-" not in str(msg):
