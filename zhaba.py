@@ -200,7 +200,7 @@ class ZhabaMod(loader.Module):
                 txt += " ⛔️"
             txt += "\n\nДоступ: 🟢 (<code>.s su</code>)"
             txt += "\nХод в походе: 🟢"
-            txt += f"\nНик для команд: <b>{self.su['name']}</b>"
+            txt += f"\nНик для команд: <code>{self.su['name']}</code>"
             txt += "\n\n<a href='t.me/jabuser'>гайд</a>"
             return await m.edit(txt)
         if m.text.split(" ", 2)[1] == "su":
