@@ -119,7 +119,7 @@ class ZhabaMod(loader.Module):
                 txt += f"\nНик для команд: <code>{self.su['name']}</code>"
                 txt += "\n\n<a href='t.me/jabuser'>гайд</a>"
                 return await m.edit(txt)
-            txt += "\n    • Снаряжение:"
+            txt += "\n\n    • Снаряжение:"
             if "as" in self.su:
                 txt += " 🟢"
             elif "ass" in self.su:
@@ -169,7 +169,7 @@ class ZhabaMod(loader.Module):
                 txt += "\n        ━"
             else:
                 txt += " ⛔️"
-            txt += "\n    🍽Столовая:"
+            txt += "\n\n    🍽Столовая:"
             if "ss" in self.su:
                 txt += " 🟢"
             elif "sss" in self.su:
@@ -179,7 +179,7 @@ class ZhabaMod(loader.Module):
                 txt += "\n        ━"
             else:
                 txt += " ⛔️"
-            txt += "\n\n    🎰Крупье:"
+            txt += "\n    🎰Крупье:"
             if "cs" in self.su:
                 txt += " 🟢"
             elif "css" in self.su:
@@ -224,7 +224,7 @@ class ZhabaMod(loader.Module):
         if m.text.split(" ", 2)[1] == "nn":
             if len(m.text) < 4:
                 await m.edit(
-                    "🐖пиши <code>.s nn Ник</code>\n (ник должен содержать больше 2 букв)"
+                    "🐖 <code>.s nn Ник</code>\n (ник должен содержать больше 2 букв)"
                 )
             msg = m.text.split(" ", 2)[2]
             self.su["name"] = msg.casefold()
