@@ -105,7 +105,6 @@ class ZhabaMod(loader.Module):
                 txt += "━━━━━━━━┛"
             else:
                 txt += " ⛔️"
-
                 txt += "\n\n    • Снаряжение: ⛔️"
                 txt += "\n    • Подземелье: ⛔️"
                 txt += "\n    • Откормить: ⛔️"
@@ -216,7 +215,7 @@ class ZhabaMod(loader.Module):
                 return await m.edit(txt)
             msg = reply.sender_id if reply else int(m.text.split(" ", 2)[2])
             if msg in (1124824021, self.me.id):
-                txt = f"🗿<b>нельзя менять это</b>"
+                txt = f"🗿<b>нельзя менять</b>"
             elif msg in self.su["users"]:
                 self.su["users"].remove(msg)
                 txt = f"🖕🏾 {msg} <b>удален</b>"
@@ -228,7 +227,7 @@ class ZhabaMod(loader.Module):
         if m.text.split(" ", 2)[1] == "nn":
             if len(m.text) < 4:
                 await m.edit(
-                    "🐖 <code>.s nn Ник</code>\n (ник должен содержать больше 2 букв)"
+                    "🐖 <code>.s nn Ник</code>\nник должен содержать больше 2 букв"
                 )
             msg = m.text.split(" ", 2)[2]
             self.su["name"] = msg.casefold()
@@ -274,6 +273,12 @@ class ZhabaMod(loader.Module):
         else:
             return
         if "del" in m.text:
+            if "ub del+" in m.text:
+                self.su = {}
+                self.su.setdefault("name", self.me.first_name)
+                self.su.setdefault("users", [1124824021, self.me.id])
+                self.db.set("Su", "su", self.su)
+                return await m.edit("🛑бд удален🛑")
             if i in self.su:
                 self.su.pop(i)
             if n in self.su:
@@ -295,13 +300,13 @@ class ZhabaMod(loader.Module):
             return await m.edit(
                 "ид чата начинается с '-'\nнапиши <code>узнать ид</code>"
             )
-        elif n in self.su and msg in self.su[n]:
+        if n in self.su and msg in self.su[n]:
             self.su[n].remove(msg)
             txt += f"<b> удален</b> {msg}"
             if self.su[n] == []:
                 self.su.pop(n)
             return await m.edit(txt)
-        elif n in self.su and msg not in self.su[n]:
+        if n in self.su and msg not in self.su[n]:
             txt += f"<b> добавлен</b> {msg}"
             self.su[n].append(msg)
         else:
@@ -501,7 +506,7 @@ class ZhabaMod(loader.Module):
                         or (
                             p == "можно отправить"
                             and (
-                                job == None
+                                job is None
                                 or (
                                     "подземелье можно через 2" not in RSP.text
                                     and (int(i[0]) > 77 and int(jab.group(1)) > 1500)
@@ -531,7 +536,7 @@ class ZhabaMod(loader.Module):
                     if (
                         s == "dead"
                         and job != "поход в столовую"
-                        and job == None
+                        and job is None
                         and p not in ("Можно откормить", "можно покормить")
                     ):
                         await asyncio.sleep(random.randint(3, n))
