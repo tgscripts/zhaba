@@ -196,8 +196,9 @@ class ZhabaMod(loader.Module):
                 "<b>💶Грабитель:</b>",
             )
             ede = (ub, sn, pz, ok, fm, ar, js, jk, jg)
+            txt = ""
             for i in ede:
-                txt = i[0]
+                txt += i[0]
                 if "auto" not in self.su and "chats" not in self.su:
                     txt += i[7]
                     continue
