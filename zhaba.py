@@ -316,7 +316,7 @@ class ZhabaMod(loader.Module):
 
     async def watcher(self, m):
         """алко"""
-        if "auto" not in self.su or "chats" not in self.su:
+        if "auto" not in self.su and "chats" not in self.su:
             return
         ct = datetime.datetime.now()
         n = (
