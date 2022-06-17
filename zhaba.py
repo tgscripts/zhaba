@@ -216,7 +216,8 @@ class ZhabaMod(loader.Module):
             txt += f"\nНик для команд: <code>{self.su['name']}</code>"
             txt += "\n\n<a href='t.me/jabuser'>гайд</a>"
             return await m.edit(txt)
-        if m.text.split(" ", 2)[1] == "su":
+        cmn = m.text.split(" ", 2)[1]
+        if cmn == "su":
             reply = await m.get_reply_message()
             if len(m.text) < 13 and not reply:
                 txt = "Доступ к управлению модулем:\n"
@@ -237,7 +238,6 @@ class ZhabaMod(loader.Module):
                 txt = f"🤙🏾 {msg} <b>добавлен</b>"
             self.db.set("Su", "su", self.su)
             return await m.edit(txt)
-        cmn = m.text.split(" ", 2)[1]
         if cmn == "nn":
             if len(m.text) < 4:
                 await m.edit(
@@ -248,20 +248,27 @@ class ZhabaMod(loader.Module):
             txt = f"👻 <code>{self.su['name']}</code> успешно изменён"
             self.db.set("Su", "su", self.su)
             return await m.edit(txt)
-        edd = {
-            "ub": ub,
-            "sn": sn,
-            "pz": pz,
-            "ok": ok,
-            "fm": fm,
-            "ar": ar,
-            "js": js,
-            "jk": jk,
-            "jg": jg,
-        }
-        if cmn not in edd:
-            return
-        for i in edd[cmn]:
+        if cmn == "ub":
+          p = ub
+        elif cmn == "sn":
+          p = sn
+        elif cmn == "pz":
+          p = pz
+        elif cmn == "ok":
+          p = ok
+        elif cmn == "fm":
+          p = fm
+        elif cmn == "ar":
+          p = ar
+        elif cmn == "js":
+          p = js
+        elif cmn == "jk":
+          p = jk
+        elif cmn == "jg":
+          p = jg
+        else:
+          return
+        for i in p:
             txt = i[8]
             s = i[1]
             n = i[3]
