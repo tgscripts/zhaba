@@ -101,7 +101,7 @@ class ZhabaMod(loader.Module):
             "chats",
             " ⭐️",
             "\n├",
-            "\n━━━━━━━━┛",
+            "\n━",
             " ⛔️",
             "<b>👑Userbot:</b>",
         )
