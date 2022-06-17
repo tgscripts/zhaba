@@ -268,10 +268,9 @@ class ZhabaMod(loader.Module):
           p = jg
         else:
           return
-        for i in p:
-            txt = i[8]
-            s = i[1]
-            n = i[3]
+        txt = p[8]
+        s = p[1]
+        n = p[3]
         if "del" in m.text:
             if "ub del+" in m.text:
                 self.su.clear()
