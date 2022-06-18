@@ -449,11 +449,10 @@ class ZhabaMod(loader.Module):
             if "minute" not in self.su:
                 self.su["minute"] = ct.minute
                 self.db.set("Su", "su", self.su)
-            elif -1 < (ct.minute - self.su["minute"]) < 1:
+            if -1 < (ct.minute - self.su["minute"]) < 1:
                 return
-            else:
-                self.su.setdefault("minute", ct.minute)
-                self.db.set("Su", "su", self.su)
+            self.su.setdefault("minute", ct.minute)
+            self.db.set("Su", "su", self.su)
             chat = 1124824021
             cmn = "мои жабы"
             await self.err(chat, cmn)
