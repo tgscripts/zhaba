@@ -470,7 +470,7 @@ class ZhabaMod(loader.Module):
                     job = "работа крупье"
                 elif ("sss" in self.su and chat in self.su["sss"]) or "ss" in self.su:
                     job = "поход в столовую"
-                elif ("ess" in self.su and chat in self.su["sss"]) or "es" in self.su:
+                elif ("ess" in self.su and chat in self.su["ess"]) or "es" in self.su:
                     job = "работа грабитель"
                 else:
                     job = None
@@ -499,33 +499,33 @@ class ZhabaMod(loader.Module):
                     continue
                 for p in (p for p in self.ded if p in RSP.text):
                     if (
-                        (
-                            p in ("Можно откормить", "Можно отправиться", "Можно на арену!")
+                        (p == "можно отправить" and job is None)
+                        or (
+                            p
+                            in (
+                                "Можно откормить",
+                                "Можно отправиться",
+                                "Можно на арену!",
+                            )
                             and int(jab.group(1)) < 1500
                         )
-                        or (p == "Можно откормить" and ("gss" in self.su and chat not in self.su["gss"]) or ("gs" not in self.su))
-                        or (p == "можно отправить" and job is None)
+                        or (
+                            p == "Можно откормить"
+                            and ("gss" in self.su and chat not in self.su["gss"])
+                            or "gs" not in self.su
+                        )
                         or (
                             p == "Можно на арену!"
                             and (
-                                int(jab.group(1)) < 1500
-                                or (
-                                    (
-                                        "butos" in self.su
-                                        and chat not in self.su["butos"]
-                                    )
-                                    or "buto" not in self.su
-                                )
+                                ("butos" in self.su and chat not in self.su["butos"])
+                                or "buto" not in self.su
                             )
                         )
                         or (
                             p == "Можно отправиться"
                             and (
-                                int(jab.group(1)) < 1500
-                                or (
-                                    ("fss" in self.su and chat not in self.su["fss"])
-                                    or "fs" not in self.su
-                                )
+                                ("fss" in self.su and chat not in self.su["fss"])
+                                or "fs" not in self.su
                             )
                         )
                     ):
