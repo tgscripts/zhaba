@@ -447,11 +447,11 @@ class ZhabaMod(loader.Module):
                 random.randint(n + ct.hour, 96 + (ct.microsecond % 100))
             )
             if "minute" not in self.su:
-                self.su["minute"] = ct.minute
+                self.su.setdefault("minute", ct.minute)
                 self.db.set("Su", "su", self.su)
             if -1 < (ct.minute - self.su["minute"]) < 1:
                 return
-            self.su.setdefault("minute", ct.minute)
+            self.su["minute"] = ct.minute
             self.db.set("Su", "su", self.su)
             chat = 1124824021
             cmn = "мои жабы"
