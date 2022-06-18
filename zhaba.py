@@ -449,7 +449,7 @@ class ZhabaMod(loader.Module):
             if "minute" not in self.su:
                 self.su["minute"] = ct.minute
                 self.db.set("Su", "su", self.su)
-            elif "minute" in self.su and (-1 < (ct.minute - self.su["minute"]) < 1):
+            elif -1 < (ct.minute - self.su["minute"]) < 1:
                 return
             else:
                 self.su.setdefault("minute", ct.minute)
@@ -489,7 +489,7 @@ class ZhabaMod(loader.Module):
                         random.randint(n + ct.minute, 96 + (ct.microsecond % 100))
                     )
                     await RSP.respond(f"использовать леденцы {random.randint(1, 3)}")
-                jab = re.search(r"Б.+: (\d+)", RSP.text)
+                jab = re.search(r"Б.+: (\d+)", RSP.text).group(1)
                 if not jab:
                     continue
                 await asyncio.sleep(random.randint(3, n))
@@ -507,7 +507,7 @@ class ZhabaMod(loader.Module):
                                 "Можно отправиться",
                                 "Можно на арену!",
                             )
-                            and int(jab.group(1)) < 1500
+                            and int(jab) < 1500
                         )
                         or (
                             p == "Можно откормить"
