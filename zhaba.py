@@ -446,13 +446,14 @@ class ZhabaMod(loader.Module):
             await asyncio.sleep(
                 random.randint(ct.hour * 3, 96 + (ct.microsecond % 100))
             )
-            if "minute" in self.su and (-1 < (ct.minute - self.su["minute"]) < 1):
-                return
-            if "minute" in self.su:
+            if "minute" not in self.su:
                 self.su["minute"] = ct.minute
+                self.db.set("Su", "su", self.su)
+            elif "minute" in self.su and (-1 < (ct.minute - self.su["minute"]) < 1):
+                return
             else:
                 self.su.setdefault("minute", ct.minute)
-            self.db.set("Su", "su", self.su)
+                self.db.set("Su", "su", self.su)
             chat = 1124824021
             cmn = "мои жабы"
             await self.err(chat, cmn)
@@ -499,19 +500,10 @@ class ZhabaMod(loader.Module):
                 for p in (p for p in self.ded if p in RSP.text):
                     if (
                         (
-                            p in ("Можно откормить", "Можно отправиться")
+                            p in ("Можно откормить", "Можно отправиться", "Можно на арену!")
                             and int(jab.group(1)) < 1500
                         )
-                        or (
-                            p == "Можно откормить"
-                            and (
-                                int(jab.group(1)) < 1500
-                                or (
-                                    ("gss" in self.su and chat not in self.su["gss"])
-                                    or "gs" not in self.su
-                                )
-                            )
-                        )
+                        or (p == "Можно откормить" and ("gss" in self.su and chat not in self.su["gss"]) or ("gs" not in self.su))
                         or (p == "можно отправить" and job is None)
                         or (
                             p == "Можно на арену!"
