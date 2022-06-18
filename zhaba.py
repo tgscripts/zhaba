@@ -510,8 +510,10 @@ class ZhabaMod(loader.Module):
                         )
                         or (
                             p == "Можно откормить"
-                            and ("gss" in self.su and chat not in self.su["gss"])
-                            or "gs" not in self.su
+                            and (
+                                ("gss" in self.su and chat not in self.su["gss"])
+                                or "gs" not in self.su
+                            )
                         )
                         or (
                             p == "Можно на арену!"
