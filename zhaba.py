@@ -444,7 +444,7 @@ class ZhabaMod(loader.Module):
             if ct.minute not in (n, n + 13):
                 return
             await asyncio.sleep(
-                random.randint(ct.hour * 3, 96 + (ct.microsecond % 100))
+                random.randint(n + ct.hour, 96 + (ct.microsecond % 100))
             )
             if "minute" not in self.su:
                 self.su["minute"] = ct.minute
