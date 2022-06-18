@@ -441,7 +441,7 @@ class ZhabaMod(loader.Module):
                         return await m.reply(self.ded[msg])
                     await asyncio.sleep(random.randint(3, n))
                     await m.respond(self.ded[msg])
-            if ct.minute not in (n + 13, n + 27):
+            if ct.minute not in (n, n + 1):
                 return
             await asyncio.sleep(
                 random.randint(ct.hour * 3, 96 + (ct.microsecond % 100))
