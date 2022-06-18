@@ -328,7 +328,7 @@ class ZhabaMod(loader.Module):
             if (
                 isinstance(m, Message)
                 and (
-                     ("chats" in self.su and m.chat_id in self.su["chats"])
+                    ("chats" in self.su and m.chat_id in self.su["chats"])
                     or "auto" in self.su
                 )
                 and m.sender_id in self.su["users"]
@@ -502,13 +502,47 @@ class ZhabaMod(loader.Module):
                             p in ("Можно откормить", "Можно отправиться")
                             and int(jab.group(1)) < 1500
                         )
-                        or (p == "Можно откормить" and (int(jab.group(1)) < 1500 or (("gss" in self.su and chat not in self.su["gss"]) or "gs" not in self.su)))
+                        or (
+                            p == "Можно откормить"
+                            and (
+                                int(jab.group(1)) < 1500
+                                or (
+                                    ("gss" in self.su and chat not in self.su["gss"])
+                                    or "gs" not in self.su
+                                )
+                            )
+                        )
                         or (p == "можно отправить" and job is None)
-                        or (p == "Можно на арену!" and (int(jab.group(1)) < 1500 or (("butos" in self.su and chat not in self.su["butos"]) or "buto" not in self.su)))
-                        or (p == "Можно отправиться" and (int(jab.group(1)) < 1500 or (("fss" in self.su and chat not in self.su["fss"]) or "fs" not in self.su)))
+                        or (
+                            p == "Можно на арену!"
+                            and (
+                                int(jab.group(1)) < 1500
+                                or (
+                                    (
+                                        "butos" in self.su
+                                        and chat not in self.su["butos"]
+                                    )
+                                    or "buto" not in self.su
+                                )
+                            )
+                        )
+                        or (
+                            p == "Можно отправиться"
+                            and (
+                                int(jab.group(1)) < 1500
+                                or (
+                                    ("fss" in self.su and chat not in self.su["fss"])
+                                    or "fs" not in self.su
+                                )
+                            )
+                        )
                     ):
                         continue
-                    if (s == "dead" and (job != "поход в столовую" or job is None or p not in ("Можно откормить", "можно покормить"))):
+                    if s == "dead" and (
+                        job != "поход в столовую"
+                        or job is None
+                        or p not in ("Можно откормить", "можно покормить")
+                    ):
                         await asyncio.sleep(random.randint(3, n))
                         await RSP.respond("реанимировать жабу")
                     if p == "можно отправить":
@@ -516,7 +550,10 @@ class ZhabaMod(loader.Module):
                         continue
                     await asyncio.sleep(random.randint(3, n))
                     await RSP.respond(self.ded[p])
-                if "не в браке" in RSP.text or (("hss" in self.su and chat not in self.su["hss"]) or "hs" not in self.su):
+                if "не в браке" in RSP.text or (
+                    ("hss" in self.su and chat not in self.su["hss"])
+                    or "hs" not in self.su
+                ):
                     continue
                 await asyncio.sleep(random.randint(3, n))
                 cmn = "Моя семья"
