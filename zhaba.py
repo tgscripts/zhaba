@@ -445,7 +445,7 @@ class ZhabaMod(loader.Module):
                     )
                     for i in re.findall(r"•(.+) \|.+ (\d+) \| (-\d+)", RSP.text):
                         await asyncio.sleep(
-                            random.randint(n + ct.hour, 96 + (ct.microsecond % 100))
+                            random.randint(n, 96 + (ct.microsecond % 100))
                             + ct.minute
                         )
                         chat = int(i[2])
