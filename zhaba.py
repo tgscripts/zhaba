@@ -519,20 +519,19 @@ class ZhabaMod(loader.Module):
                     if (
                         p == "Можно откормить" and (skip == 1 or ok == 0)
                     ):
-                        continue
+                        pass
                     elif (
                         p == "Можно отправиться" and (skip == 1 or pz == 0)
                     ):
-                        continue
+                        pass
                     elif (
                         p == "Можно на арену!" and (skip == 1 or ar == 0)
                     ):
-                        continue
+                        pass
                     elif p == "можно отправить" and job == 0:
-                        continue
+                        pass
                     elif p == "можно отправить":
                         await RSP.respond(job)
-                        continue
                     else:
                         await asyncio.sleep(random.randint(3, n) + ct.minute)
                         await RSP.respond(self.ded[p])
