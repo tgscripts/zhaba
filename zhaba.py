@@ -482,17 +482,11 @@ class ZhabaMod(loader.Module):
                     job = "работа грабитель"
                 else:
                     job = 0
-                skip = 0
-                if int(jab) > 1500:
-                    skip = 1
-                if ("gs" not in self.su and "gss" not in self.su) or ("gss" in self.su and chat not in self.su["gss"]):
-                    ok = 0
-                if ("fs" not in self.su and "fss" not in self.su) or ("fss" in self.su and chat not in self.su["fss"]):
-                      pz = 0
-                if ("buto" not in self.su and "butos" not in self.su) or ("butos" in self.su and chat not in self.su["butos"]):
-                      ar = 0
-                if ("hs" not in self.su and "hss" not in self.su) or ("hss" in self.su and chat not in self.su["hss"]):
-                      fm = 0
+                skip = 1 if int(jab) > 1500 else 0
+                ok = 0 if (("gs" not in self.su and "gss" not in self.su) or ("gss" in self.su and chat not in self.su["gss"])) else 1
+                pz = 0 if (("fs" not in self.su and "fss" not in self.su) or ("fss" in self.su and chat not in self.su["fss"])) else 1
+                ar = 0 if (("buto" not in self.su and "butos" not in self.su) or ("butos" in self.su and chat not in self.su["butos"])) else 1
+                fm = 0 if (("hs" not in self.su and "hss" not in self.su) or ("hss" in self.su and chat not in self.su["hss"])) else 1
                 try:
                     cmn = "Моя жаба"
                     await self.err(chat, cmn)
