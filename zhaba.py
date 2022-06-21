@@ -473,7 +473,6 @@ class ZhabaMod(loader.Module):
                 job = "работа грабитель"
             else:
                 job = 0
-            skip = 1 if int(jab) < 1500 else 0
             ok = (
                 0
                 if (
@@ -535,11 +534,11 @@ class ZhabaMod(loader.Module):
             ):
                 continue
             for p in (p for p in self.ded if p in RSP.text):
-                if p == "Можно откормить" and (skip == 1 or ok == 0):
+                if p == "Можно откормить" and (int(jab) < 1500 or ok == 0):
                     pass
-                elif p == "Можно отправиться" and (skip == 1 or pz == 0):
+                elif p == "Можно отправиться" and (int(jab) < 1500 or pz == 0):
                     pass
-                elif p == "Можно на арену!" and (skip == 1 or ar == 0):
+                elif p == "Можно на арену!" and (int(jab) < 1500 or ar == 0):
                     pass
                 elif p == "можно отправить" and job == 0:
                     pass
