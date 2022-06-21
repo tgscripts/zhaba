@@ -214,7 +214,7 @@ class ZhabaMod(loader.Module):
             txt += f"\n\nДоступ: {msg} <code>.s su</code>"
             txt += f"\nХод в походе: {msg}"
             txt += f"\nНик для команд: <code>{self.su['name']}</code>"
-            txt += "\n\n<a href='t.me/jabuser'>гайд</a>"
+            txt += "\n\nГайд: [<a href='t.me/jabuser'>1</a>, <a href='https://te.legra.ph/-06-20-999'>2</a>]"
             return await m.edit(txt)
         cmn = m.text.split(" ", 2)[1]
         if cmn == "su":
@@ -536,11 +536,15 @@ class ZhabaMod(loader.Module):
             for p in (p for p in self.ded if p in RSP.text):
                 if p == "Можно откормить" and (int(jab) < 1500 or ok == 0):
                     pass
+                elif p == "можно покормить" and ok == 1:
+                    pass
                 elif p == "Можно отправиться" and (int(jab) < 1500 or pz == 0):
                     pass
                 elif p == "Можно на арену!" and (int(jab) < 1500 or ar == 0):
                     pass
                 elif p == "можно отправить" and job == 0:
+                    pass
+                elif p == "можно отправить" and pz == 1:
                     pass
                 elif p == "можно отправить":
                     await RSP.respond(job)
