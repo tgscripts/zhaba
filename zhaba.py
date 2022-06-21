@@ -319,12 +319,8 @@ class ZhabaMod(loader.Module):
         if "auto" not in self.su and "chats" not in self.su:
             return
         ct = datetime.datetime.now()
-        n = (
-            (self.me.id % 100) + ct.day
-            if (self.me.id % 100) < 21
-            else int(self.me.id % 100 / 3)
-        )
-        n = n + ct.hour if n < 30 else n - ct.hour
+        n = (self.me.id % 100) if (self.me.id % 100) < 21 else int(self.me.id % 100 / 3)
+        n += ct.hour
         if (
             isinstance(m, Message)
             and (
