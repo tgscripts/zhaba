@@ -207,7 +207,7 @@ class ZhabaMod(loader.Module):
             txt += f"\nХод в походе: {msg}"
             txt += f"\nНик для команд: <code>{self.su['name']}</code>"
             txt += (
-                "\n\n<a href='te.legra.ph/-06-20-999'>🛂Гайд</a>\n<a href='t.me/jabuser'>🛃Канал</a>"
+                "\n\n@jabuser\n<a href='te.legra.ph/-06-20-999'>@гайд</a>"
             )
             return await m.edit(txt)
         cmn = m.text.split(" ", 2)[1]
