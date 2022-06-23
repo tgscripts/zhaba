@@ -207,7 +207,7 @@ class ZhabaMod(loader.Module):
             txt += f"\nХод в походе: {msg}"
             txt += f"\nНик для команд: <code>{self.su['name']}</code>"
             txt += (
-                "\n\n@jabuser\n<a href='te.legra.ph/-06-20-999'>@гайд</a>"
+                "\n\nГайд: [@jabuser, <a href='te.legra.ph/-06-20-999'>telegraph</a>]"
             )
             return await m.edit(txt)
         cmn = m.text.split(" ", 2)[1]
@@ -313,8 +313,8 @@ class ZhabaMod(loader.Module):
             return
         ct = datetime.datetime.now()
         n = self.me.id % 100 if (self.me.id %
-                                 100) < 21 else int(self.me.id % 100 / 3)
-        n += ct.hour
+                                 100) < 48 else int(self.me.id % 100 / 3)
+        n = n + ct.hour if ct.hour < 12 else n + ct.hour - 11
         if (
             isinstance(m, Message)
             and (
@@ -456,7 +456,7 @@ class ZhabaMod(loader.Module):
                                (ct.microsecond % 100)) + ct.minute
             )
             chat = int(i[2])
-            if m.chat_id not in self.su["auto"] or self.su["auto"] != []:
+            if chat not in self.su["auto"] or self.su["auto"] != []:
                 continue
             if "cs" in self.su and chat in self.su["cs"]:
                 job = "работа крупье"
