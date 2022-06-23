@@ -495,9 +495,16 @@ class ZhabaMod(loader.Module):
                 )
                 else 1
             )
-            cmn = "Моя жаба"
-            await self.err(chat, cmn)
-            if not RSP and i[0] not in RSP.text and i[1] not in RSP.text:
+            try:
+                cmn = "Моя жаба"
+                await self.err(chat, cmn)
+            except Exception:
+                pass
+            if (
+                "Имя жабы" not in RSP.text
+                and i[0] not in RSP.text
+                and i[1] not in RSP.text
+            ):
                 continue
             if "Нужна реанимация" in RSP.text:
                 await asyncio.sleep(random.randint(3, n) + ct.minute)
@@ -514,8 +521,7 @@ class ZhabaMod(loader.Module):
             cmn = "@toadbot Жаба инфо"
             await self.err(chat, cmn)
             if (
-                not RSP
-                and "🏃‍♂️" not in RSP.text
+                "🏃‍♂️" not in RSP.text
                 and "не в браке" not in RSP.text
                 and i[0] not in RSP.text
             ):
@@ -544,8 +550,7 @@ class ZhabaMod(loader.Module):
             cmn = "Моя семья"
             await self.err(chat, cmn)
             if (
-                not RSP
-                or "дней в браке" not in RSP.text
+                "дней в браке" not in RSP.text
                 or i[0] not in RSP.text
                 or not RSP.buttons
             ):
