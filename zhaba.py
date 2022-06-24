@@ -51,9 +51,9 @@ class ZhabaMod(loader.Module):
             "леденец": "Отдать леденец",
             "кулон": "Скрафтить кулон братвы",
             "лидерку": "Передать клан",
-            "букахи": "букашки",
-            "аптеки": "аптечки",
-            "ледики": "леденцы",
+            "букахи": "Букашки",
+            "аптеки": "Аптечки",
+            "ледики": "Леденцы",
             "Ближний бой: Пусто": "скрафтить клюв цапли",
             "Дальний бой: Пусто": "скрафтить букашкомет",
             "Наголовник: Пусто": "скрафтить наголовник из клюва цапли",
@@ -271,12 +271,12 @@ class ZhabaMod(loader.Module):
                 return await m.edit("🛑данные очищены🛑")
             if s in self.su:
                 self.su.pop(s)
-            txt += " ⛔️"
+            txt += " ⛔"
             return await m.edit(txt)
         if "all" in m.text:
             if s in self.su and self.su[s] == []:
                 self.su.pop(s)
-                txt += " ⛔️"
+                txt += " ⛔"
             elif s in self.su:
                 self.su[s].clear()
                 txt += " 🟢"
@@ -326,15 +326,19 @@ class ZhabaMod(loader.Module):
             await asyncio.sleep(random.randint(3, n + 7))
             chat = m.chat_id
             reply = await m.get_reply_message()
+            cn = (
+                0
+                if "as" not in self.su
+                or (self.su["as"] != [] and chat not in self.su["as"])
+                else 1
+            )
             if "нуждается в реанимации" in m.text and m.buttons:
                 await m.respond("реанимировать жабу")
                 await asyncio.sleep(random.randint(3, n))
                 await m.click()
             elif "ход: " in m.text and m.buttons:
                 await m.click()
-            elif "сломалось" in m.text and (
-                ("as" in self.su and (chat in self.su["as"] or self.su["as"] == []))
-            ):
+            elif "сломалось" in m.text and cn == 1:
                 cmn = "мое снаряжение"
                 await self.err(chat, cmn)
                 if not RSP and "🗡" not in RSP.text:
@@ -342,7 +346,7 @@ class ZhabaMod(loader.Module):
                 for i in (i for i in self.ded if i in RSP.text):
                     await asyncio.sleep(random.randint(3, n))
                     await m.respond(self.ded[i])
-            elif "Банда получила" in m.text:
+            elif "Банда получила" in m.text and cn == 1:
                 await m.respond("отдать леденец")
                 await asyncio.sleep(random.randint(3, n))
                 cmn = "моя банда"
@@ -378,17 +382,6 @@ class ZhabaMod(loader.Module):
                 if jab < 50:
                     return
                 await m.reply(f"отправить букашки {jab}")
-            elif "del" in m.text:
-                chat = 1124824021
-                cmn = "мои жабы"
-                await self.err(chat, cmn)
-                if not RSP:
-                    return
-                await self.client.delete_dialog(chat, revoke=True)
-                for i in re.findall(r"(-\d+)", RSP.text):
-                    chat = int(i)
-                    async for msg in self.client.iter_messages(chat, from_user="me"):
-                        await msg.delete()
             elif "напиши в " in m.text:
                 chat = m.text.split(" ", 4)[3]
                 if chat.isnumeric():
@@ -397,6 +390,11 @@ class ZhabaMod(loader.Module):
                     msg = reply
                 else:
                     msg = m.text.split(" ", 4)[4]
+                    if msg not in self.ded:
+                        return await self.client.send_message(chat, msg)
+                    if msg in ("напади", "арена"):
+                        return await self.npn(chat, msg)
+                    return await self.client.send_message(chat, self.ded[msg])
                 await self.client.send_message(chat, msg)
             elif "напиши " in m.text:
                 txt = m.text.split(" ", 2)[2]
