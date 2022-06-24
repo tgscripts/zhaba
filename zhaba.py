@@ -85,12 +85,12 @@ class ZhabaMod(loader.Module):
             return
         if "Вы не участвуете" in RSP.text or "Ваша жаба на тусе" in RSP.text:
             return
-        await asyncio.sleep(random.randint(3, 33))
+        await asyncio.sleep(random.randint(9, 13))
         if "Ваша жаба в предсмертном" in RSP.text or "Для участия" in RSP.text:
             await RSP.respond("реанимировать жабу")
         elif "Ваша жаба на" in RSP.text:
             await RSP.respond("завершить работу")
-        await asyncio.sleep(random.randint(3, 33))
+        await asyncio.sleep(random.randint(9, 13))
         await self.client.send_message(chat, cmn)
 
     async def scmd(self, m):
@@ -271,12 +271,12 @@ class ZhabaMod(loader.Module):
                 return await m.edit("🛑данные очищены🛑")
             if s in self.su:
                 self.su.pop(s)
-            txt += " ⛔"
+            txt += " ⛔️"
             return await m.edit(txt)
         if "all" in m.text:
             if s in self.su and self.su[s] == []:
                 self.su.pop(s)
-                txt += " ⛔"
+                txt += " ⛔️"
             elif s in self.su:
                 self.su[s].clear()
                 txt += " 🟢"
@@ -286,9 +286,7 @@ class ZhabaMod(loader.Module):
             return await m.edit(txt)
         msg = m.chat_id if len(m.text) < 9 else int(m.text.split(" ", 2)[2])
         if "-" not in str(msg):
-            return await m.edit(
-                "ид должен начинаться с '-'\nнапиши <code>Узнать ид</code>"
-            )
+            return await m.edit("неправильный ид\nнапиши <code>Узнать ид</code>")
         if s in self.su and msg in self.su[s]:
             self.su[s].remove(msg)
             txt += f"<b> удален</b> {msg}"
@@ -539,9 +537,20 @@ class ZhabaMod(loader.Module):
                     pass
                 elif p == "Можно на арену!" and ar == 0:
                     pass
-                elif p == "можно отправить" and job == 0:
-                    pass
-                elif p == "можно отправить" and pz == 1:
+                elif p == "Можно на арену!" or p == "Используйте атаку":
+                    if ct.minute < 48:
+                        await asyncio.sleep(random.randint(3, n) + ct.minute)
+                        await RSP.respond(self.ded[p])
+                    for i in range(3):
+                        s += 13
+                        n = random.randint(9, s)
+                        await self.client.send_message(
+                            chat, "Реанимировать жабу", schedule=timedelta(minutes=n)
+                        )
+                        await self.client.send_message(
+                            chat, self.ded[p], schedule=timedelta(minutes=n + 1)
+                        )
+                elif p == "можно отправить" and (job == 0 or pz == 1):
                     pass
                 elif p == "можно отправить" and pz == 0:
                     await RSP.respond(job)
