@@ -191,7 +191,7 @@ class ZhabaMod(loader.Module):
             txt += f"\n\nНик: <code>{self.su['name']}</code>"
             txt += f"\nУправление: {msg}"
             txt += f"\nХод в походе: {msg}"
-            txt += "\n\n<a href='te.legra.ph/-06-20-999'>@гайд</a>\n@jabuser"
+            txt += "\n\n<a href='te.legra.ph/-06-20-999'>@гайд</a>"
             return await m.edit(txt)
         cmn = m.text.split(" ", 2)[1]
         if cmn == "su":
