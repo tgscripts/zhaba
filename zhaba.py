@@ -514,13 +514,10 @@ class ZhabaMod(loader.Module):
                     pass
                 elif p in ("Можно на арену!", "Используйте атаку"):
                     s = 13
-                    if ct.minute < 48:
-                        await asyncio.sleep(random.randint(3, n + 3) + ct.minute)
-                        await RSP.respond(self.ded[p])
-                        if p != "Используйте атаку":
-                            return
-                        await asyncio.sleep(random.randint(s, 33))
-                        await RSP.respond(self.ded[p])
+                    await asyncio.sleep(random.randint(3, n + 3))
+                    await RSP.respond(self.ded[p])
+                    await asyncio.sleep(random.randint(s, 33))
+                    await RSP.respond(self.ded[p])
                     if ct.hour > 20:
                         return
                     await self.client.send_message(
@@ -530,21 +527,19 @@ class ZhabaMod(loader.Module):
                     )
                     for n in range(3):
                         s += 13
-                        i = random.randint(13, s)
-                        if (ct.minute + i) > 49:
-                            i += ct.minute + 10
-                        else:
-                            i = 49 - ct.minute
+                        time = random.randint(13, s)
+                        if (ct.minute + time) > 49:
+                            time += ct.minute + 10
                         await asyncio.sleep(random.randint(3, 13))
                         await self.client.send_message(
                             chat,
                             "На арену",
-                            schedule=datetime.timedelta(minutes=i),
+                            schedule=datetime.timedelta(minutes=time),
                         )
                     await self.client.send_message(
                         chat,
                         "Реанимировать жабу",
-                        schedule=datetime.timedelta(minutes=i + 1),
+                        schedule=datetime.timedelta(minutes=time + 1),
                     )
                 elif p == "можно отправить" and (job == 0 or pz == 1):
                     pass
