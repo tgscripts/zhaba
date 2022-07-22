@@ -167,6 +167,8 @@ class AirMod(loader.Module):
     """🇺🇦 Предупреждение о воздушной тревоге.
     Нужно быть подписаным на @air_alert_ua и включены уведомления в вашем боте"""
 
+    strings = {"name": "aba"}
+
     async def client_ready(self, client, db) -> None:
         self.db = db
         self.client = client
